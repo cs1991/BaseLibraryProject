@@ -1,7 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
-apply plugin: 'com.jfrog.bintray'
-
+group='com.github.cs1991'
 //lambda 支持
 apply plugin: 'me.tatarka.retrolambda'
 
@@ -12,7 +11,6 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.3.3'
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
 
         //lambda 支持
@@ -75,4 +73,3 @@ dependencies {
     compile 'com.dino:changeskin:1.9'
 }
 
-apply from: "bintrayUpload.gradle"
