@@ -26,6 +26,11 @@
             android:text="网络请求列表"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/tablayout"
+            android:text="tablayout示例"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
 </layout>

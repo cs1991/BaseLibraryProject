@@ -71,5 +71,6 @@ dependencies {
     compile 'com.github.GrenderG:Toasty:1.1.3'
     //换肤
     compile 'com.dino:changeskin:1.9'
+    compile 'q.rorbin:badgeview:1.1.2'
 }
 

@@ -13,6 +13,7 @@ import net.cs.appbaselibrary.utils.ToastUtils;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import q.rorbin.verticaltablayoutdemo.MainActivity_Tab;
 
 public class MainActivity extends BaseAppCompatActivity {
 
@@ -34,7 +35,7 @@ public class MainActivity extends BaseAppCompatActivity {
         ToastUtils.showToast("Toast");
     }
 
-    @OnClick({R.id.baseRecyclerViewActivity, R.id.baseRecyclerViewFragment, R.id.net_RecyclerViewActivity})
+    @OnClick({R.id.baseRecyclerViewActivity, R.id.tablayout, R.id.baseRecyclerViewFragment, R.id.net_RecyclerViewActivity})
     public void onClick(View view) {
         Intent intent = new Intent();
         switch (view.getId()) {
@@ -50,6 +51,10 @@ public class MainActivity extends BaseAppCompatActivity {
 
             case R.id.net_RecyclerViewActivity:
                 intent.setClass(this, NetRecyclerViewActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.tablayout:
+                intent.setClass(this, MainActivity_Tab.class);
                 startActivity(intent);
                 break;
         }

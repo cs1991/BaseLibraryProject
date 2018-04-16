@@ -21,6 +21,8 @@
         <activity android:name=".Test_BaseRecyclerViewActivity" />
         <activity android:name=".Test_BaseRecyclerViewFragment" />
         <activity android:name=".NetRecyclerViewActivity"/>
+        <activity android:name="q.rorbin.verticaltablayoutdemo.MainActivity_Tab"/>
+        <activity android:name="q.rorbin.verticaltablayoutdemo.TabFragmentActivity"/>
     </application>
 
 </manifest>
