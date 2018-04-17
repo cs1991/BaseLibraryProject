@@ -33,8 +33,7 @@ public abstract class BaseRecyclerViewActivity<T> extends BaseAppCompatActivity 
 
     @Override
     public void initRecyclerView() {
-        recyclerPresenter = new BaseRecyclerViewPresenter(new RecyclerDataRepository(this, LocalRecyclerDataSource.getInstance()));
-        recyclerPresenter.attachView(this);
+        recyclerPresenter = new BaseRecyclerViewPresenter(this,new RecyclerDataRepository(this, LocalRecyclerDataSource.getInstance()));
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         swipeRefresh = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
 

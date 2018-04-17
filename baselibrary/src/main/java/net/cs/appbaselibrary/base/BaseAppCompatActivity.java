@@ -16,6 +16,7 @@ import com.dino.changeskin.SkinManager;
 import net.cs.appbaselibrary.AppManager;
 import net.cs.appbaselibrary.NetWorkStateReceiver;
 import net.cs.appbaselibrary.base.mvp.BasePresenter;
+import net.cs.appbaselibrary.base.mvp.MvpPresenter;
 import net.cs.appbaselibrary.base.mvp.MvpView;
 import net.cs.appbaselibrary.utils.Immersive;
 import net.cs.appbaselibrary.utils.NetworkUtils;
@@ -30,7 +31,7 @@ import butterknife.Unbinder;
 /**
  * Created by cshuiyong@outlook.com on 2016/5/25.
  */
-public abstract class BaseAppCompatActivity<V extends MvpView, P extends BasePresenter<V>> extends AppCompatActivity implements BaseViewInterface, MvpView {
+public abstract class BaseAppCompatActivity<V extends MvpView, P extends MvpPresenter> extends AppCompatActivity implements BaseViewInterface, MvpView {
     /**
      * P层引用
      */
@@ -75,10 +76,6 @@ public abstract class BaseAppCompatActivity<V extends MvpView, P extends BasePre
 
         //创建Presenter层
         mPresent = getPresenter();
-        //做绑定
-        if(mPresent != null){
-            mPresent.attachView((V) this);
-        }
 
         initRecyclerView();
         init();
@@ -96,6 +93,7 @@ public abstract class BaseAppCompatActivity<V extends MvpView, P extends BasePre
     @Override
     public void onResume() {
         super.onResume();
+
 
         if (getPresenter() != null) {
             getPresenter().subscribe();

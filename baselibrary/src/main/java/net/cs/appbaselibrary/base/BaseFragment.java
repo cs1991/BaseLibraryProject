@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import net.cs.appbaselibrary.base.mvp.BasePresenter;
+import net.cs.appbaselibrary.base.mvp.MvpPresenter;
 import net.cs.appbaselibrary.base.mvp.MvpView;
 import net.cs.appbaselibrary.utils.NetworkUtils;
 import net.cs.appbaselibrary.utils.ToastUtils;
@@ -25,7 +26,7 @@ import butterknife.Unbinder;
 /**
  * Created by cson 2016/6/22.
  */
-public abstract class BaseFragment<V extends MvpView, P extends BasePresenter<V>> extends Fragment implements BaseViewInterface, MvpView {
+public abstract class BaseFragment<V extends MvpView, P extends MvpPresenter> extends Fragment implements BaseViewInterface, MvpView {
     /**
      * P层引用
      */
@@ -51,10 +52,6 @@ public abstract class BaseFragment<V extends MvpView, P extends BasePresenter<V>
         super.onCreate(savedInstanceState);
         //创建Presenter层
         mPresent = (P) getPresenter();
-        //做绑定
-        if(mPresent != null){
-            mPresent.attachView((V) this);
-        }
         EventBus.getDefault().register(this);
     }
 

@@ -1,6 +1,7 @@
 package net.cs.appbaselibrary.base.mvp;
 
 import android.support.annotation.NonNull;
+import android.view.View;
 
 import java.lang.ref.Reference;
 import java.lang.ref.WeakReference;
@@ -12,14 +13,16 @@ import io.reactivex.disposables.Disposable;
  * Created by lenovo on 2017/1/4.
  */
 
-public abstract class BasePresenter<V extends MvpView> {
-    protected Reference<V> mViewRef;//View 接口类型的弱引用
+public abstract class BasePresenter<V extends MvpView> implements MvpPresenter{
+    protected WeakReference<V> mViewRef;//View 接口类型的弱引用
     @NonNull
-    protected CompositeDisposable disposables;
+    private CompositeDisposable disposables;
 
-    protected abstract void initPresenter();
-    public void attachView(MvpView view) {
-        mViewRef = new WeakReference<V>((V) view);
+    public BasePresenter(V view){
+        attachView(view);
+    }
+    public void attachView(V view) {
+        mViewRef = new WeakReference<V>(view);
     }
 
     protected V getView() {

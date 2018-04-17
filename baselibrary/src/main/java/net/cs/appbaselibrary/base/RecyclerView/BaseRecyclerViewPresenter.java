@@ -2,6 +2,7 @@ package net.cs.appbaselibrary.base.RecyclerView;
 
 import android.support.annotation.NonNull;
 
+import net.cs.appbaselibrary.base.mvp.BasePresenter;
 import net.cs.appbaselibrary.data.RecyclerDataRepository;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -14,21 +15,18 @@ import io.reactivex.schedulers.Schedulers;
  * Date on 2016/11/25
  */
 
-public class BaseRecyclerViewPresenter<T> extends BaseRecyclerViewContract.Presenter {
+public class BaseRecyclerViewPresenter<T> extends BasePresenter<BaseRecyclerViewContract.View> implements BaseRecyclerViewContract.Presenter {
 
     private int pageNo = 1;
 
     @NonNull
     private RecyclerDataRepository<T> repository;
 
-    public BaseRecyclerViewPresenter(RecyclerDataRepository<T> repository) {
+    public BaseRecyclerViewPresenter(BaseRecyclerViewContract.View view,RecyclerDataRepository<T> repository) {
+        super(view);
         this.repository = repository;
     }
 
-    @Override
-    protected void initPresenter() {
-
-    }
 
     public int getListPageNo() {
         return pageNo;
@@ -81,7 +79,7 @@ public class BaseRecyclerViewPresenter<T> extends BaseRecyclerViewContract.Prese
                     public void onComplete() {
                     }
                 });
-        disposables.add(disposable);
+        addDispose(disposable);
     }
 
     @Override

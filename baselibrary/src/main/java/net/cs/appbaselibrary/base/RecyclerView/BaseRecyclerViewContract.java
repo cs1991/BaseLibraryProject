@@ -1,6 +1,7 @@
 package net.cs.appbaselibrary.base.RecyclerView;
 
 import net.cs.appbaselibrary.base.mvp.BasePresenter;
+import net.cs.appbaselibrary.base.mvp.MvpPresenter;
 import net.cs.appbaselibrary.base.mvp.MvpView;
 
 /**
@@ -26,15 +27,15 @@ public interface BaseRecyclerViewContract {
     /**
      * Presenter接口层 处理业务
      */
-    abstract class Presenter extends BasePresenter<View> {
-        abstract int getListPageNo();
+    interface Presenter extends MvpPresenter{
+         int getListPageNo();
 
-        abstract void setListPageNo(int pageNo);
+         void setListPageNo(int pageNo);
 
-        abstract void onListRefresh();
+         void onListRefresh();
 
-        abstract void onListLoadMore();
+         void onListLoadMore();
 
-        abstract void onListUpData(int pageNo);
+         void onListUpData(int pageNo);
     }
 }

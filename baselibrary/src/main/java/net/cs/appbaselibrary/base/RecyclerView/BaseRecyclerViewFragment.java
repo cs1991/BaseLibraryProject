@@ -32,8 +32,7 @@ public abstract class BaseRecyclerViewFragment<T> extends BaseFragment implement
 
     @Override
     public void initRecyclerView() {
-        recyclerPresenter = new BaseRecyclerViewPresenter(new RecyclerDataRepository(this, LocalRecyclerDataSource.getInstance()));
-        recyclerPresenter.attachView(this);
+        recyclerPresenter = new BaseRecyclerViewPresenter(this,new RecyclerDataRepository(this, LocalRecyclerDataSource.getInstance()));
         recyclerView = (RecyclerView) getView().findViewById(R.id.recyclerView);
         swipeRefresh = (SwipeRefreshLayout) getView().findViewById(R.id.swiperefresh);
 
