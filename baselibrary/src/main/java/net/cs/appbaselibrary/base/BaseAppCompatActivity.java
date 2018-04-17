@@ -31,7 +31,7 @@ import butterknife.Unbinder;
 /**
  * Created by cshuiyong@outlook.com on 2016/5/25.
  */
-public abstract class BaseAppCompatActivity<V extends MvpView, P extends MvpPresenter> extends AppCompatActivity implements BaseViewInterface, MvpView {
+public abstract class BaseAppCompatActivity<P extends MvpPresenter> extends AppCompatActivity implements BaseViewInterface, MvpView {
     /**
      * P层引用
      */

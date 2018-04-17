@@ -26,7 +26,7 @@ import butterknife.Unbinder;
 /**
  * Created by cson 2016/6/22.
  */
-public abstract class BaseFragment<V extends MvpView, P extends MvpPresenter> extends Fragment implements BaseViewInterface, MvpView {
+public abstract class BaseFragment<P extends MvpPresenter> extends Fragment implements BaseViewInterface, MvpView {
     /**
      * P层引用
      */
