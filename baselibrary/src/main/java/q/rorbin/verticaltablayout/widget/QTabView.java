@@ -8,10 +8,14 @@ import android.os.Build;
 import android.support.annotation.Px;
 import android.support.annotation.RequiresApi;
 import android.text.TextUtils;
+import android.util.AttributeSet;
 import android.view.Gravity;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.zhy.autolayout.AutoFrameLayout;
+import com.zhy.autolayout.utils.AutoLayoutHelper;
 
 import q.rorbin.badgeview.Badge;
 
@@ -20,6 +24,7 @@ import q.rorbin.badgeview.Badge;
  *         Email:qstumn@163.com
  */
 public class QTabView extends TabView {
+    private final AutoLayoutHelper mHelper = new AutoLayoutHelper(this);
     private Context mContext;
     private TextView mTitle;
     private Badge mBadgeView;
@@ -276,5 +281,21 @@ public class QTabView extends TabView {
     @Override
     public void toggle() {
         setChecked(!mChecked);
+    }
+
+    @Override
+    public AutoFrameLayout.LayoutParams generateLayoutParams(AttributeSet attrs)
+    {
+        return new AutoFrameLayout.LayoutParams(getContext(), attrs);
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
+    {
+        if (!isInEditMode())
+        {
+            mHelper.adjustChildren();
+        }
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 }
