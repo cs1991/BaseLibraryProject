@@ -9,6 +9,7 @@ import android.support.annotation.Px;
 import android.support.annotation.RequiresApi;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -59,7 +60,7 @@ public class QTabView extends TabView {
         setMinimumHeight(AutoUtils.getPercentHeightSize(25));
         if (mTitle == null) {
             mTitle = new TextView(mContext);
-            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.MATCH_PARENT);
+            AutoFrameLayout.LayoutParams params = new AutoFrameLayout.LayoutParams(AutoFrameLayout.LayoutParams.WRAP_CONTENT, AutoFrameLayout.LayoutParams.MATCH_PARENT);
             params.gravity = Gravity.CENTER;
             mTitle.setLayoutParams(params);
             this.addView(mTitle);
@@ -125,7 +126,7 @@ public class QTabView extends TabView {
 
     private void initTitleView() {
         mTitle.setTextColor(isChecked() ? mTabTitle.getColorSelected() : mTabTitle.getColorNormal());
-        mTitle.setTextSize(AutoUtils.getPercentHeightSize(mTabTitle.getTitleTextSize()));
+        mTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX,AutoUtils.getPercentHeightSize(mTabTitle.getTitleTextSize()));
         mTitle.setText(mTabTitle.getContent());
         mTitle.setGravity(Gravity.CENTER);
         mTitle.setEllipsize(TextUtils.TruncateAt.END);
