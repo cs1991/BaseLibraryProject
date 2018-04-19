@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.zhy.autolayout.AutoFrameLayout;
 import com.zhy.autolayout.utils.AutoLayoutHelper;
+import com.zhy.autolayout.utils.AutoUtils;
 
 import q.rorbin.badgeview.Badge;
 
@@ -55,7 +56,7 @@ public class QTabView extends TabView {
     }
 
     private void initView() {
-        setMinimumHeight(q.rorbin.badgeview.DisplayUtil.dp2px(mContext,25));
+        setMinimumHeight(AutoUtils.getPercentHeightSize(25));
         if (mTitle == null) {
             mTitle = new TextView(mContext);
             FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.MATCH_PARENT);
@@ -124,7 +125,7 @@ public class QTabView extends TabView {
 
     private void initTitleView() {
         mTitle.setTextColor(isChecked() ? mTabTitle.getColorSelected() : mTabTitle.getColorNormal());
-        mTitle.setTextSize(mTabTitle.getTitleTextSize());
+        mTitle.setTextSize(AutoUtils.getPercentHeightSize(mTabTitle.getTitleTextSize()));
         mTitle.setText(mTabTitle.getContent());
         mTitle.setGravity(Gravity.CENTER);
         mTitle.setEllipsize(TextUtils.TruncateAt.END);
@@ -138,7 +139,7 @@ public class QTabView extends TabView {
             drawable = mContext.getResources().getDrawable(iconResid);
             int r = mTabIcon.getIconWidth() != -1 ? mTabIcon.getIconWidth() : drawable.getIntrinsicWidth();
             int b = mTabIcon.getIconHeight() != -1 ? mTabIcon.getIconHeight() : drawable.getIntrinsicHeight();
-            drawable.setBounds(0, 0, r, b);
+            drawable.setBounds(0, 0, AutoUtils.getPercentWidthSize(r), AutoUtils.getPercentHeightSize(b));
         }
         switch (mTabIcon.getIconGravity()) {
             case Gravity.START:
@@ -161,7 +162,12 @@ public class QTabView extends TabView {
         int iconResid = mChecked ? mTabIcon.getSelectedIcon() : mTabIcon.getNormalIcon();
         if (iconResid != 0) {
             if (!TextUtils.isEmpty(mTabTitle.getContent()) && mTitle.getCompoundDrawablePadding() != mTabIcon.getMargin()) {
-                mTitle.setCompoundDrawablePadding(mTabIcon.getMargin());
+                if(mTabIcon.getIconGravity() == Gravity.BOTTOM || mTabIcon.getIconGravity() == Gravity.TOP) {
+                    mTitle.setCompoundDrawablePadding(AutoUtils.getPercentHeightSize(mTabIcon.getMargin()));
+                }else {
+                    mTitle.setCompoundDrawablePadding(AutoUtils.getPercentWidthSize(mTabIcon.getMargin()));
+                }
+
             } else if (TextUtils.isEmpty(mTabTitle.getContent())) {
                 mTitle.setCompoundDrawablePadding(0);
             }
