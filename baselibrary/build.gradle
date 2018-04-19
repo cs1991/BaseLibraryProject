@@ -72,6 +72,7 @@ dependencies {
     //换肤
     compile 'com.dino:changeskin:1.9'
     compile 'q.rorbin:badgeview:1.1.2'
+    compile 'com.zhy:autolayout:1.4.5'
 
 }
 

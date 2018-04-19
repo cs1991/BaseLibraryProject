@@ -19,6 +19,9 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
+import com.zhy.autolayout.AutoFrameLayout;
+import com.zhy.autolayout.utils.AutoLayoutHelper;
+
 import net.cs.appbaselibrary.R;
 
 import java.util.ArrayList;
@@ -38,6 +41,7 @@ import static android.support.v4.view.ViewPager.SCROLL_STATE_SETTLING;
  *         Email:qstumn@163.com
  */
 public class VerticalTabLayout extends ScrollView {
+    private final AutoLayoutHelper mHelper = new AutoLayoutHelper(this);
     private Context mContext;
     private TabStrip mTabStrip;
     private int mColorIndicator;
@@ -687,4 +691,22 @@ public class VerticalTabLayout extends ScrollView {
 
         void onTabReselected(TabView tab, int position);
     }
+
+
+    @Override
+    public AutoFrameLayout.LayoutParams generateLayoutParams(AttributeSet attrs)
+    {
+        return new AutoFrameLayout.LayoutParams(getContext(), attrs);
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
+    {
+        if (!isInEditMode())
+        {
+            mHelper.adjustChildren();
+        }
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+    }
+
 }
