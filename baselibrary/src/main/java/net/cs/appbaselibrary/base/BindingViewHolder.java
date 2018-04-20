@@ -4,6 +4,7 @@ import android.databinding.ViewDataBinding;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.zhy.autolayout.utils.AutoUtils;
 
 import net.cs.appbaselibrary.R;
 
@@ -15,6 +16,7 @@ public class BindingViewHolder extends BaseViewHolder {
 
     public BindingViewHolder(View view) {
         super(view);
+        AutoUtils.autoSize(view);
     }
 
     public ViewDataBinding getBinding() {
