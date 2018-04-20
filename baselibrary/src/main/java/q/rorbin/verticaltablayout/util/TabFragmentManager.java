@@ -73,8 +73,9 @@ public class TabFragmentManager {
     private class OnFragmentTabSelectedListener implements VerticalTabLayout.OnTabSelectedListener {
 
         @Override
-        public void onTabSelected(TabView tab, int position) {
+        public boolean onTabSelected(TabView tab, int position) {
             changeFragment();
+            return false;
         }
 
         @Override

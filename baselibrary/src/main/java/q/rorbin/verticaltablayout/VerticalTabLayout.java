@@ -238,7 +238,10 @@ public class VerticalTabLayout extends ScrollView {
                 OnTabSelectedListener listener = mTabSelectedListeners.get(i);
                 if (listener != null) {
                     if (selected) {
-                        listener.onTabSelected(view, position);
+                        boolean intercept = listener.onTabSelected(view, position);
+                        if(intercept) {
+                            break;
+                        }
                     } else {
                         listener.onTabReselected(view, position);
                     }
@@ -430,10 +433,11 @@ public class VerticalTabLayout extends ScrollView {
 
             addOnTabSelectedListener(new OnTabSelectedListener() {
                 @Override
-                public void onTabSelected(TabView tab, int position) {
+                public boolean onTabSelected(TabView tab, int position) {
                     if (mViewPager != null && mViewPager.getAdapter().getCount() >= position) {
                         mViewPager.setCurrentItem(position);
                     }
+                    return false;
                 }
 
                 @Override
@@ -687,7 +691,7 @@ public class VerticalTabLayout extends ScrollView {
 
     public interface OnTabSelectedListener {
 
-        void onTabSelected(TabView tab, int position);
+        boolean onTabSelected(TabView tab, int position);
 
         void onTabReselected(TabView tab, int position);
     }
