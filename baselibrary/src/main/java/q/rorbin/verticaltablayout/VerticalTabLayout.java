@@ -5,6 +5,7 @@ import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.database.DataSetObserver;
+import android.databinding.adapters.TextViewBindingAdapter;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
@@ -61,6 +62,7 @@ public class VerticalTabLayout extends ScrollView {
     private TabAdapter mTabAdapter;
 
     private List<OnTabSelectedListener> mTabSelectedListeners;
+    private List<OnBeforeTabSelectListener> mBeforeTabSelectListeners;
     private OnTabPageChangeListener mTabPageChangeListener;
     private DataSetObserver mPagerAdapterObserver;
 
@@ -78,6 +80,7 @@ public class VerticalTabLayout extends ScrollView {
         super(context, attrs, defStyleAttr);
         mContext = context;
         mTabSelectedListeners = new ArrayList<>();
+        mBeforeTabSelectListeners = new ArrayList<>();
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.VerticalTabLayout);
         mColorIndicator = typedArray.getColor(R.styleable.VerticalTabLayout_indicator_color,
                 context.getResources().getColor(R.color.colorAccent));
@@ -221,6 +224,11 @@ public class VerticalTabLayout extends ScrollView {
 
     private void setTabSelectedImpl(final int position, boolean updataIndicator, boolean callListener) {
         TabView view = getTabAt(position);
+        for(OnBeforeTabSelectListener onBeforeListener : mBeforeTabSelectListeners) {
+            if(onBeforeListener.onBeforeTabSelect(view,position)) {
+                return;
+            }
+        }
         boolean selected;
         if (selected = (view != mSelectedTab)) {
             if (mSelectedTab != null) {
@@ -365,6 +373,16 @@ public class VerticalTabLayout extends ScrollView {
 //
 //    }
 
+    public void addOnBeforeSelectListener(OnBeforeTabSelectListener listener) {
+        if(listener != null) {
+            mBeforeTabSelectListeners.add(listener);
+        }
+    }
+    public void removeOnBeforeSelectListener(OnBeforeTabSelectListener listener) {
+        if (listener != null) {
+            mBeforeTabSelectListeners.remove(listener);
+        }
+    }
     public void addOnTabSelectedListener(OnTabSelectedListener listener) {
         if (listener != null) {
             mTabSelectedListeners.add(listener);
@@ -694,6 +712,9 @@ public class VerticalTabLayout extends ScrollView {
         boolean onTabSelected(TabView tab, int position);
 
         void onTabReselected(TabView tab, int position);
+    }
+    public interface OnBeforeTabSelectListener{
+        boolean onBeforeTabSelect(TabView tab, int position);
     }
 
 
