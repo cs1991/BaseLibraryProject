@@ -493,13 +493,13 @@ public class VerticalTabLayout extends ScrollView {
             final int adapterCount = mPagerAdapter.getCount();
             if (mPagerAdapter instanceof TabAdapter) {
                 setTabAdapter((TabAdapter) mPagerAdapter);
-            } else {
+            } /*else {
                 for (int i = 0; i < adapterCount; i++) {
                     String title = mPagerAdapter.getPageTitle(i) == null ? "tab" + i : mPagerAdapter.getPageTitle(i).toString();
                     addTab(new QTabView(mContext).setTitle(
                             new QTabView.TabTitle.Builder().setContent(title).build()));
                 }
-            }
+            }*/
 
             // Make sure we reflect the currently set ViewPager item
             if (mViewPager != null && adapterCount > 0) {
