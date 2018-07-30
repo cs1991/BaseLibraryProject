@@ -23,6 +23,12 @@
         <activity android:name=".NetRecyclerViewActivity"/>
         <activity android:name="q.rorbin.verticaltablayoutdemo.MainActivity_Tab"/>
         <activity android:name="q.rorbin.verticaltablayoutdemo.TabFragmentActivity"/>
+        <meta-data
+            android:name="design_width"
+            android:value="1920"/>
+        <meta-data
+            android:name="design_height"
+            android:value="1080"/>
     </application>
 
 </manifest>
