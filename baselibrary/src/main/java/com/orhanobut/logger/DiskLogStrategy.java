@@ -6,6 +6,8 @@ import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import net.cs.appbaselibrary.utils.AppUtils;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -39,11 +41,12 @@ public class DiskLogStrategy implements LogStrategy {
 
     @NonNull private final String folder;
     private final int maxFileSize;
-
-    WriteHandler(@NonNull Looper looper, @NonNull String folder, int maxFileSize) {
+    private final String versionName;
+    WriteHandler(@NonNull Looper looper, @NonNull String folder, int maxFileSize,String version) {
       super(checkNotNull(looper));
       this.folder = checkNotNull(folder);
       this.maxFileSize = maxFileSize;
+      this.versionName = version;
     }
 
     @SuppressWarnings("checkstyle:emptyblock")
@@ -98,11 +101,11 @@ public class DiskLogStrategy implements LogStrategy {
       File newFile;
       File existingFile = null;
       SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd", Locale.UK);
-      newFile = new File(folder, String.format("%s_%s_(%s).txt", fileName,dateFormat.format(System.currentTimeMillis()),newFileCount));
+      newFile = new File(folder, String.format("%s_%s_%s(%s).txt", fileName,dateFormat.format(System.currentTimeMillis()), versionName,newFileCount));
       while (newFile.exists()) {
         existingFile = newFile;
         newFileCount++;
-        newFile = new File(folder, String.format("%s_%s_(%s).txt", fileName,dateFormat.format(System.currentTimeMillis()),newFileCount));
+        newFile = new File(folder, String.format("%s_%s_%s(%s).txt", fileName,dateFormat.format(System.currentTimeMillis()),versionName,newFileCount));
       }
 
       if (existingFile != null) {

@@ -72,6 +72,8 @@ public class PrettyFormatStrategy implements FormatStrategy {
   /**
    * 文件目录
    */
+  private String versionName;
+  private boolean isSaveToFile;
   private String folder;
   private int maxFileSize;
   private final int methodCount;
@@ -84,6 +86,8 @@ public class PrettyFormatStrategy implements FormatStrategy {
   private PrettyFormatStrategy(@NonNull Builder builder) {
     checkNotNull(builder);
 
+    versionName = builder.versionName;
+    isSaveToFile = builder.isSaveToFile;
     maxFileSize = builder.maxFileSize;
     folder = builder.folder;
     methodCount = builder.methodCount;
@@ -192,13 +196,15 @@ public class PrettyFormatStrategy implements FormatStrategy {
     checkNotNull(chunk);
 
     logStrategy.log(priority, tag, chunk);
-    diskStrategy.log(priority,tag,"\n"+TOP_DIVIDER+chunk);
+    if(isSaveToFile){
+      diskStrategy.log(priority,tag,"\n"+TOP_DIVIDER+chunk);
+    }
   }
   private void logChunk(boolean isTopBorder,int priority, @Nullable String tag, @NonNull String chunk) {
     checkNotNull(chunk);
 
     logStrategy.log(priority, tag, chunk);
-    if(isTopBorder){
+    if(isTopBorder && isSaveToFile){
       diskStrategy.log(priority,tag,"\n"+dateFormat.format(System.currentTimeMillis())+chunk);
     }
 
@@ -237,6 +243,8 @@ public class PrettyFormatStrategy implements FormatStrategy {
   }
 
   public static class Builder {
+    String versionName;
+    boolean isSaveToFile;
     String folder;
     int maxFileSize = 500 * 1024;//500K averages to a 4000 lines per file
 
@@ -249,8 +257,16 @@ public class PrettyFormatStrategy implements FormatStrategy {
     private Builder() {
     }
 
+    @NonNull public Builder isSaveToFile(boolean saveToFile) {
+      isSaveToFile = saveToFile;
+      return this;
+    }
     @NonNull public Builder fileFolder(String folderStr) {
       folder = folderStr;
+      return this;
+    }
+    @NonNull public Builder versionName(String version) {
+      versionName = version;
       return this;
     }
     @NonNull public Builder maxFileSize(int maxSize) {
@@ -295,7 +311,7 @@ public class PrettyFormatStrategy implements FormatStrategy {
 
         HandlerThread ht = new HandlerThread("AndroidFileLogger." + folderStr);
         ht.start();
-        Handler handler = new DiskLogStrategy.WriteHandler(ht.getLooper(), folderStr, maxFileSize);
+        Handler handler = new DiskLogStrategy.WriteHandler(ht.getLooper(), folderStr, maxFileSize,versionName);
         diskStrategy = new DiskLogStrategy(handler);
       }
       return new PrettyFormatStrategy(this);

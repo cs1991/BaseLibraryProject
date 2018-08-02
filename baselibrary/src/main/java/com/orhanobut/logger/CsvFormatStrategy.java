@@ -131,7 +131,7 @@ public class CsvFormatStrategy implements FormatStrategy {
 
         HandlerThread ht = new HandlerThread("AndroidFileLogger." + folder);
         ht.start();
-        Handler handler = new DiskLogStrategy.WriteHandler(ht.getLooper(), folder, MAX_BYTES);
+        Handler handler = new DiskLogStrategy.WriteHandler(ht.getLooper(), folder, MAX_BYTES,"");
         logStrategy = new DiskLogStrategy(handler);
       }
       return new CsvFormatStrategy(this);

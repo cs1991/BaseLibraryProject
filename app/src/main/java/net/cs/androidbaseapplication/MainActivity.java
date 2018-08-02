@@ -6,6 +6,8 @@ import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.View;
 
+import com.socks.library.KLog;
+
 import net.cs.appbaselibrary.NetWorkStateReceiver;
 import net.cs.appbaselibrary.base.BaseAppCompatActivity;
 import net.cs.appbaselibrary.base.mvp.BasePresenter;
@@ -33,6 +35,18 @@ public class MainActivity extends BaseAppCompatActivity {
         ToastUtils.showSuccessToast("Success");
         ToastUtils.showErrorToast("Error");
         ToastUtils.showToast("Toast");
+        KLog.d("abcde","11111111111111111111111");
+        KLog.d("abcde","11111111111111111111111");
+        KLog.d("abcde","11111111111111111111111");
+        KLog.d("abcde","11111111111111111111111");
+        KLog.d("abcde","11111111111111111111111");
+        KLog.d("abcde","11111111111111111111111");
+        KLog.d("abcde","11111111111111111111111");
+        KLog.d("abcde","11111111111111111111111");
+        KLog.d("11111111111111111111111");
+        KLog.d("11111111111111111111111");
+        KLog.d("11111111111111111111111");
+        KLog.d("11111111111111111111111");
     }
 
     @OnClick({R.id.baseRecyclerViewActivity, R.id.tablayout, R.id.baseRecyclerViewFragment, R.id.net_RecyclerViewActivity})
